@@ -1,0 +1,110 @@
+[
+  {
+    "question": "1. RESTful API란 무엇인가요?",
+    "answer": "RESTful API는 Representational State Transfer (REST) 아키텍처 스타일을 따르는 API를 의미합니다. REST는 자원을 URI로 표현하고 HTTP 메소드를 통해 자원에 대한 행위를 정의합니다.",
+    "subQuestion": {
+      "question": "1.1. REST와 SOAP의 차이점은 무엇인가요?",
+      "answer": "REST는 더 간단하고 경량화된 방식으로 데이터를 전송하며 HTTP 프로토콜을 직접적으로 사용합니다. SOAP는 XML을 사용하며 더 복잡하고 무거운 프로토콜을 사용합니다.",
+      "subQuestion": {
+        "question": "1.1.1. REST API 설계 시 주의해야 할 사항은 무엇인가요?",
+        "answer": "리소스 설계, 상태 없는 서버(Stateless), 보안, 적절한 HTTP 상태 코드 사용 등이 중요합니다."
+      }
+    }
+  },
+  {
+    "question": "2. 데이터베이스에서 인덱스(Index)란 무엇인가요?",
+    "answer": "인덱스는 데이터베이스 테이블에서 데이터를 빠르게 검색할 수 있도록 돕는 자료구조입니다. 인덱스를 통해 검색 성능을 향상시킬 수 있지만, 쓰기 성능이 저하될 수 있습니다.",
+    "subQuestion": {
+      "question": "2.1. 인덱스의 종류는 어떤 것이 있나요?",
+      "answer": "B-Tree 인덱스, 해시 인덱스, GiST 인덱스 등이 있습니다.",
+      "subQuestion": {
+        "question": "2.1.1. 인덱스가 과도하게 사용될 경우 발생할 수 있는 문제는 무엇인가요?",
+        "answer": "인덱스가 많아지면 쓰기 작업에서 성능 저하가 발생하고, 인덱스 유지 보수 비용이 증가합니다."
+      }
+    }
+  },
+  {
+    "question": "3. 트랜잭션(Transaction)이란 무엇인가요?",
+    "answer": "트랜잭션은 데이터베이스의 상태를 변화시키는 작업의 단위로, 일련의 작업들이 모두 성공하거나 모두 실패하는 것을 보장합니다.",
+    "subQuestion": {
+      "question": "3.1. 트랜잭션의 ACID 속성에 대해 설명해주세요.",
+      "answer": "ACID는 Atomicity(원자성), Consistency(일관성), Isolation(격리성), Durability(지속성)를 의미하며, 트랜잭션이 안전하게 처리되기 위한 속성입니다.",
+      "subQuestion": {
+        "question": "3.1.1. 트랜잭션 격리 수준(Isolation Level)에는 어떤 것들이 있나요?",
+        "answer": "READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE 등이 있으며, 각각의 격리 수준은 일관성과 동시성 처리에 차이를 가져옵니다."
+      }
+    }
+  },
+  {
+    "question": "4. 마이크로서비스 아키텍처란 무엇인가요?",
+    "answer": "마이크로서비스 아키텍처는 애플리케이션을 작은 서비스 단위로 분리하여 독립적으로 개발, 배포 및 운영할 수 있도록 하는 소프트웨어 아키텍처 스타일입니다.",
+    "subQuestion": {
+      "question": "4.1. 마이크로서비스의 장단점은 무엇인가요?",
+      "answer": "장점으로는 독립적인 배포, 유지보수성 향상, 확장성 등을 들 수 있으며, 단점으로는 서비스 간 복잡성 증가와 분산 트랜잭션의 어려움 등이 있습니다.",
+      "subQuestion": {
+        "question": "4.1.1. 마이크로서비스 간 통신 방식에는 어떤 것이 있나요?",
+        "answer": "REST API, gRPC, 메시지 큐 등을 사용할 수 있습니다."
+      }
+    }
+  },
+  {
+    "question": "5. 캐시(Cache)란 무엇인가요?",
+    "answer": "캐시는 데이터의 접근 속도를 높이기 위해 자주 사용하는 데이터를 임시로 저장해두는 메모리입니다. 캐시를 사용하면 데이터베이스나 다른 원본 소스에 대한 접근을 줄여 성능을 향상시킬 수 있습니다.",
+    "subQuestion": {
+      "question": "5.1. 캐시의 주요 전략에는 어떤 것들이 있나요?",
+      "answer": "캐시의 주요 전략에는 레이지 로딩(Lazy Loading), 이벨리데이션(Invalidation), 쓰기 스루(Write-Through), 쓰기 백(Write-Back) 등이 있습니다.",
+      "subQuestion": {
+        "question": "5.1.1. 캐시 무효화 전략은 어떻게 구현하나요?",
+        "answer": "캐시 무효화는 데이터가 변경될 때 캐시된 데이터를 무효화하여 최신 상태를 유지하도록 하는 전략입니다. 주로 TTL(Time-To-Live)이나 이벤트 기반 무효화 방법을 사용합니다."
+      }
+    }
+  },
+  {
+    "question": "6. 비동기 프로그래밍(Asynchronous Programming)이란 무엇인가요?",
+    "answer": "비동기 프로그래밍은 작업이 완료될 때까지 기다리지 않고 다른 작업을 수행할 수 있는 프로그래밍 패러다임입니다. 이는 I/O 작업이나 네트워크 요청을 비동기적으로 처리하여 애플리케이션의 응답성을 높입니다.",
+    "subQuestion": {
+      "question": "6.1. 자바스크립트에서 비동기 프로그래밍을 어떻게 처리하나요?",
+      "answer": "자바스크립트에서는 콜백, 프로미스(Promise), async/await를 사용하여 비동기 작업을 처리합니다. 프로미스와 async/await는 콜백 헬(callback hell)을 해결하는 데 도움을 줍니다.",
+      "subQuestion": {
+        "question": "6.1.1. async/await의 장점은 무엇인가요?",
+        "answer": "async/await는 비동기 코드를 동기 코드처럼 작성할 수 있게 해주며, 프로미스 체이닝보다 가독성이 높고 에러 처리가 더 간편합니다."
+      }
+    }
+  },
+  {
+    "question": "7. OAuth 2.0이란 무엇인가요?",
+    "answer": "OAuth 2.0은 제3자 애플리케이션이 사용자의 자원에 접근할 수 있도록 권한을 부여하는 인증 프레임워크입니다. 사용자 비밀번호를 직접 공유하지 않고도 안전하게 자원 접근을 허용할 수 있습니다.",
+    "subQuestion": {
+      "question": "7.1. OAuth 2.0의 주요 권한 부여 흐름(Grant Types)에는 어떤 것들이 있나요?",
+      "answer": "OAuth 2.0의 주요 권한 부여 흐름에는 Authorization Code, Implicit, Resource Owner Password Credentials, Client Credentials 등이 있습니다.",
+      "subQuestion": {
+        "question": "7.1.1. Authorization Code 흐름의 장점은 무엇인가요?",
+        "answer": "Authorization Code 흐름은 비밀 클라이언트와 사용자 간의 안전한 권한 부여를 제공하며, 액세스 토큰을 직접적으로 노출시키지 않고 보안을 강화할 수 있습니다."
+      }
+    }
+  },
+  {
+    "question": "8. SQL과 NoSQL 데이터베이스의 차이점은 무엇인가요?",
+    "answer": "SQL 데이터베이스는 관계형 데이터베이스로 테이블 기반으로 데이터를 저장하며, 스키마가 고정되어 있습니다. NoSQL 데이터베이스는 비관계형 데이터베이스로 다양한 데이터 모델을 지원하며, 스키마가 유연합니다.",
+    "subQuestion": {
+      "question": "8.1. NoSQL 데이터베이스의 유형에는 어떤 것들이 있나요?",
+      "answer": "NoSQL 데이터베이스의 유형에는 문서 지향형(Document-Oriented), 키-값 저장소(Key-Value Store), 컬럼 패밀리(Column-Family), 그래프 데이터베이스(Graph Database) 등이 있습니다.",
+      "subQuestion": {
+        "question": "8.1.1. 문서 지향형 데이터베이스의 예시와 장점은 무엇인가요?",
+        "answer": "문서 지향형 데이터베이스의 예시로는 MongoDB와 CouchDB가 있습니다. 장점으로는 스키마가 유연하고, JSON과 같은 문서 기반으로 데이터를 저장하여 읽기와 쓰기 성능이 향상됩니다."
+      }
+    }
+  },
+  {
+    "question": "9. RESTful API에서 상태 코드(Status Code)는 어떤 의미를 가지나요?",
+    "answer": "HTTP 상태 코드는 클라이언트의 요청에 대한 서버의 응답 상태를 나타냅니다. 상태 코드는 1xx(정보), 2xx(성공), 3xx(리다이렉션), 4xx(클라이언트 오류), 5xx(서버 오류)로 분류됩니다.",
+    "subQuestion": {
+      "question": "9.1. 404와 500 상태 코드의 차이점은 무엇인가요?",
+      "answer": "404 상태 코드는 클라이언트가 요청한 자원을 서버에서 찾을 수 없다는 것을 의미합니다. 500 상태 코드는 서버 내부에서 예기치 않은 오류가 발생했음을 의미합니다.",
+      "subQuestion": {
+        "question": "9.1.1. 200 상태 코드 외에 다른 성공 상태 코드는 어떤 것들이 있나요?",
+        "answer": "200 OK 외에 201 Created(자원이 성공적으로 생성됨), 204 No Content(응답 본문 없음), 206 Partial Content(부분적으로 응답됨) 등이 있습니다."
+      }
+    }
+  }
+]

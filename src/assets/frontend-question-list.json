@@ -1,0 +1,167 @@
+[
+  {
+    "question": "[웹] www.naver.com 입력시 발생하는 일을 자세히 설명해봐라",
+    "answer": "www.naver.com을 브라우저 주소창에 입력하고 Enter를 누르면, 브라우저는 DNS 서버를 통해 해당 도메인의 IP 주소를 찾습니다. IP 주소를 찾으면 해당 서버로 HTTP 요청을 보내고, 서버는 요청에 대한 응답을 HTML 파일 형태로 반환합니다. 브라우저는 받은 HTML 파일을 렌더링하며 추가적인 자원(CSS, JS, 이미지 등)을 요청하여 최종적으로 웹페이지를 화면에 표시합니다.",
+    "subQuestion": {
+      "question": "브라우저 렌더링 과정",
+      "answer": "브라우저 렌더링 과정은 다음과 같습니다: 1. HTML을 파싱하여 DOM 트리를 생성합니다. 2. CSS를 파싱하여 CSSOM 트리를 생성합니다. 3. DOM과 CSSOM을 결합해 렌더링 트리를 생성합니다. 4. 렌더링 트리에서 각 요소의 레이아웃을 계산합니다. 5. 레이아웃 결과를 화면에 페인트합니다."
+    }
+  },
+  {
+    "question": "[웹] CSR과 SSR에 대해서 설명해달라",
+    "answer": "CSR(Client-Side Rendering)은 클라이언트에서 JavaScript로 콘텐츠를 렌더링하는 방식이며, 초기 로드 시간이 빠르지만, 첫 페이지 로드 전까지 빈 페이지를 볼 수 있습니다. SSR(Server-Side Rendering)은 서버에서 HTML을 생성하여 클라이언트에 제공하는 방식으로, 초기 로드 시 완전한 페이지가 표시되지만 이후의 사용자 인터랙션에 따른 리렌더링은 더 느릴 수 있습니다.",
+    "subQuestion": null
+  },
+  {
+    "question": "[자바스크립트] 실행 컨텍스트",
+    "answer": "실행 컨텍스트는 코드가 실행될 때 생성되는 환경으로, 변수, 함수 선언, this 값 등을 포함합니다. 실행 컨텍스트는 전역 컨텍스트와 함수 컨텍스트로 나뉘며, 코드 실행 시 콜 스택에 쌓입니다.",
+    "subQuestion": {
+      "question": "자바스크립트의 호이스팅",
+      "answer": "호이스팅은 JavaScript에서 변수와 함수 선언이 코드의 상단으로 끌어올려지는 현상을 말합니다. 이는 선언만 상단으로 이동하며, 초기화는 해당 코드가 실행될 때 이뤄집니다."
+    }
+  },
+  {
+    "question": "[자바스크립트] 클로저",
+    "answer": "클로저는 함수가 선언될 때의 렉시컬 환경을 기억하여, 함수가 생성된 이후에도 이 환경에 접근할 수 있는 기능을 말합니다. 클로저는 데이터를 은닉하거나, 상태를 유지하는 데 유용합니다.",
+    "subQuestion": null
+  },
+  {
+    "question": "[자바스크립트] this",
+    "answer": "자바스크립트에서 `this`는 함수가 호출된 방식에 따라 달라집니다. 전역에서 호출 시 전역 객체를 가리키며, 메서드 호출 시 해당 객체를 가리킵니다. 생성자 함수에서 `this`는 새로 생성된 객체를 참조하고, 명시적 바인딩(call, apply, bind)에서는 명시된 객체를 가리킵니다.",
+    "subQuestion": {
+      "question": "Call, Apply, Bind 함수",
+      "answer": "Call과 Apply는 함수를 호출할 때 `this`를 특정 값으로 설정해주며, call은 인자를 개별적으로 전달하고, apply는 배열로 전달합니다. Bind는 새로운 함수를 생성하며, 이 함수의 `this`는 영구적으로 지정됩니다."
+    }
+  },
+  {
+    "question": "[자바스크립트] 비동기",
+    "answer": "비동기 프로그래밍은 시간이 걸리는 작업을 기다리지 않고 다른 작업을 계속할 수 있는 프로그래밍 방식입니다. 자바스크립트에서는 이벤트 루프를 통해 비동기 작업을 처리하며, 콜백 큐, 마이크로태스크 큐를 사용해 작업 순서를 관리합니다.",
+    "subQuestion": {
+      "question": "비동기를 구현하기 위한 문법적 방법",
+      "answer": "비동기를 구현하기 위한 방법으로는 콜백 함수, Promise, 그리고 Async/Await 문법이 있습니다.",
+      "subQuestion": {
+        "question": "Promise란?",
+        "answer": "Promise는 비동기 작업의 완료 또는 실패를 나타내는 객체로, 대기(Pending), 성공(Fulfilled), 실패(Rejected) 상태를 가집니다.",
+        "subQuestion": {
+          "question": "Promise와 Callback의 차이점",
+          "answer": "Promise는 콜백 지옥을 해결하며, 콜백에 비해 가독성이 뛰어납니다. 그러나 코드 복잡성은 여전히 남아있고, 에러 처리 방식이 다릅니다.",
+          "subQuestion": {
+            "question": "Async/Await",
+            "answer": "Async/Await는 Promise를 사용한 비동기 코드를 동기 코드처럼 작성할 수 있게 해주며, 에러 처리가 더 직관적입니다."
+          }
+        }
+      }
+    }
+  },
+  {
+    "question": "[React] React.js 설명 및 장단점",
+    "answer": "React.js는 사용자 인터페이스를 구축하기 위한 JavaScript 라이브러리로, 컴포넌트 기반 개발 방식을 지원합니다. 장점으로는 재사용 가능한 컴포넌트, 가상 DOM을 통한 효율적인 업데이트, 단방향 데이터 흐름이 있으며, 단점으로는 복잡한 설정, JSX 문법의 초기 진입 장벽이 있습니다.",
+    "subQuestion": {
+      "question": "컴포넌트가 다시 렌더링되는 조건",
+      "answer": "React에서 컴포넌트는 상태(state)나 속성(props)이 변경될 때, 부모 컴포넌트가 다시 렌더링될 때, 그리고 강제로 렌더링을 트리거할 때 다시 렌더링됩니다."
+    }
+  },
+  {
+    "question": "[React] Virtual DOM",
+    "answer": "Virtual DOM은 메모리 내에서 실제 DOM의 가벼운 복사본을 유지하는 개념입니다. React는 Virtual DOM을 사용하여 변경 사항을 실제 DOM에 반영하기 전에 비교(diffing) 작업을 수행해 최소한의 변경만 실제 DOM에 적용해 성능을 향상시킵니다.",
+    "subQuestion": null
+  },
+  {
+    "question": "[React] Reconciliation(재조정)",
+    "answer": "Reconciliation은 React에서 기존 UI와 새로운 UI를 비교하여 차이점만 실제 DOM에 반영하는 과정입니다. 이 과정은 Virtual DOM을 기반으로 진행되며, 효율적인 업데이트를 보장합니다.",
+    "subQuestion": {
+      "question": "key props를 왜 index로 사용하면 안되는지",
+      "answer": "key를 배열의 index로 사용할 경우, 항목이 재정렬되면 동일한 key가 다른 항목을 가리키게 되어 의도치 않은 동작이 발생할 수 있습니다. 고유한 값을 key로 사용해야 이 문제를 방지할 수 있습니다."
+    }
+  },
+  {
+    "question": "[그 외] RESTFul",
+    "answer": "RESTFul은 Representational State Transfer의 약자로, HTTP 프로토콜을 기반으로 한 웹 서비스 아키텍처 스타일입니다. 자원을 URI로 표현하고, 자원에 대한 행위는 HTTP 메서드(GET, POST, PUT, DELETE)로 정의합니다.",
+    "subQuestion": null
+  },
+  {
+    "question": "[그 외] Typescript - any와 unknown의 차이",
+    "answer": "TypeScript에서 `any`는 모든 타입을 허용하지만, 타입 안전성이 없습니다. `unknown`은 모든 타입을 허용하지만, 실제로 사용하기 전에 해당 타입을 검사해야 하므로 더 안전합니다.",
+    "subQuestion": null
+  },
+  {
+    "question": "[자바스크립트] 이벤트 버블링(Event Bubbling)과 이벤트 캡처링(Event Capturing)에 대해 설명해달라",
+    "answer": "이벤트 버블링은 이벤트가 발생했을 때 해당 이벤트가 가장 안쪽의 요소에서 시작하여 부모 요소들로 전파되는 현상입니다. 반대로, 이벤트 캡처링은 이벤트가 최상위 요소에서 시작해 이벤트가 발생한 요소까지 전파되는 과정을 말합니다.",
+    "subQuestion": {
+      "question": "이벤트 위임(Event Delegation)이란 무엇인가?",
+      "answer": "이벤트 위임은 상위 요소에 이벤트 리스너를 설정하여 자식 요소의 이벤트를 처리하는 기법입니다. 이 방법은 많은 자식 요소에 각각 리스너를 붙이는 대신 상위 요소 하나만 관리할 수 있어 메모리 효율을 높일 수 있습니다."
+    }
+  },
+  {
+    "question": "[자바스크립트] ES6에서 추가된 주요 기능들을 설명해달라",
+    "answer": "ES6에서 추가된 주요 기능으로는 `let`과 `const` 키워드, 화살표 함수(Arrow Function), 템플릿 리터럴, 디스트럭처링 할당, 스프레드 연산자, 클래스, 모듈 시스템, 그리고 Promise가 있습니다.",
+    "subQuestion": {
+      "question": "템플릿 리터럴이란 무엇인가?",
+      "answer": "템플릿 리터럴은 백틱(``)을 사용하여 문자열을 작성할 수 있으며, `${}` 구문을 사용해 문자열 내에서 변수나 표현식을 삽입할 수 있습니다. 이를 통해 다중 줄 문자열이나 동적 문자열을 쉽게 생성할 수 있습니다."
+    }
+  },
+  {
+    "question": "[React] React의 컴포넌트 라이프사이클 메서드에 대해 설명해달라",
+    "answer": "React의 클래스형 컴포넌트에는 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount` 등의 라이프사이클 메서드가 있습니다. 각각의 메서드는 컴포넌트가 마운트, 업데이트, 언마운트될 때 실행되는 특정 동작을 정의할 수 있게 해줍니다.",
+    "subQuestion": {
+      "question": "함수형 컴포넌트에서 라이프사이클 메서드를 대체하는 방법",
+      "answer": "함수형 컴포넌트에서는 `useEffect` 훅을 사용해 라이프사이클 메서드와 유사한 동작을 구현할 수 있습니다. `useEffect`는 디펜던시 배열에 따라 마운트, 업데이트, 언마운트 시점에 특정 동작을 수행할 수 있습니다."
+    }
+  },
+  {
+    "question": "[React] 상태 관리(State Management)의 필요성과 해결 방법들에 대해 설명해달라",
+    "answer": "상태 관리는 컴포넌트 간의 데이터를 일관성 있게 유지하기 위해 필요합니다. 해결 방법으로는 React의 내부 state, Context API, Redux, MobX 등의 외부 라이브러리를 사용할 수 있습니다.",
+    "subQuestion": {
+      "question": "Context API와 Redux의 차이점",
+      "answer": "Context API는 주로 전역적으로 상태를 전달하기 위한 도구이며, 비교적 간단한 애플리케이션에서 사용하기 적합합니다. 반면, Redux는 더 복잡한 상태 관리 로직을 지원하며, 미들웨어를 통해 비동기 작업과 상태 흐름을 관리할 수 있습니다."
+    }
+  },
+  {
+    "question": "[CSS] Flexbox와 Grid의 차이점은 무엇인가?",
+    "answer": "Flexbox는 1차원 레이아웃을 다루는 데 주로 사용되며, 요소들을 한 줄 또는 한 열에 배치하는 방식으로 레이아웃을 구성합니다. Grid는 2차원 레이아웃을 다룰 수 있으며, 행과 열을 모두 설정하여 복잡한 레이아웃을 만들 수 있습니다.",
+    "subQuestion": {
+      "question": "Flexbox의 주요 속성",
+      "answer": "Flexbox의 주요 속성으로는 `flex-direction`, `justify-content`, `align-items`, `flex-wrap`, `flex-grow`, `flex-shrink` 등이 있습니다. 이러한 속성들을 통해 요소의 배치와 크기를 유연하게 조절할 수 있습니다."
+    }
+  },
+  {
+    "question": "[CSS] CSS 전처리기(Preprocessor)란 무엇이며, 어떤 이점이 있는가?",
+    "answer": "CSS 전처리기는 Sass, Less와 같은 도구를 사용해 더 복잡한 CSS를 작성하고, 이를 브라우저에서 이해할 수 있는 순수 CSS로 컴파일하는 방식입니다. 전처리기는 변수, 중첩, 믹스인 등을 지원해 CSS의 유지보수성을 높입니다.",
+    "subQuestion": {
+      "question": "Sass의 주요 기능",
+      "answer": "Sass는 변수, 중첩된 규칙, 믹스인, 상속, 파셜 및 임포트를 지원합니다. 이를 통해 CSS 코드의 재사용성과 일관성을 높일 수 있습니다."
+    }
+  },
+  {
+    "question": "[CSS] 반응형 웹 디자인(Responsive Web Design)이란 무엇인가?",
+    "answer": "반응형 웹 디자인은 다양한 화면 크기와 디바이스에 따라 레이아웃이 동적으로 변화하도록 설계된 웹 디자인 방식입니다. 주로 미디어 쿼리와 유연한 그리드 시스템을 사용해 구현합니다.",
+    "subQuestion": {
+      "question": "미디어 쿼리(Media Query)란?",
+      "answer": "미디어 쿼리는 CSS에서 특정 조건(예: 화면 크기, 해상도)에 따라 스타일을 적용할 수 있도록 해주는 규칙입니다. 이를 통해 동일한 웹 페이지가 여러 디바이스에서 최적화된 레이아웃을 가질 수 있습니다."
+    }
+  },
+  {
+    "question": "[웹 성능] 웹사이트 성능 최적화를 위한 방법들을 설명해달라",
+    "answer": "웹사이트 성능을 최적화하는 방법으로는 이미지 최적화, 코드 스플리팅, 캐싱, 콘텐츠 전송 네트워크(CDN) 사용, Lazy Loading, 그리고 브라우저 렌더링 차단 자원 최소화 등이 있습니다.",
+    "subQuestion": {
+      "question": "Lazy Loading이란 무엇인가?",
+      "answer": "Lazy Loading은 필요한 시점에만 리소스를 로드하는 기술입니다. 예를 들어, 이미지나 비디오 같은 미디어 파일을 페이지에 처음부터 로드하지 않고, 사용자가 해당 콘텐츠에 접근할 때 로드함으로써 초기 로드 시간을 줄일 수 있습니다."
+    }
+  },
+  {
+    "question": "[웹 성능] Lighthouse에 대해 설명해달라",
+    "answer": "Lighthouse는 Google에서 제공하는 오픈소스 도구로, 웹 페이지의 성능, 접근성, SEO 등을 측정하고 개선점을 제안합니다. 이를 통해 웹사이트의 품질을 향상시킬 수 있습니다.",
+    "subQuestion": {
+      "question": "Lighthouse가 측정하는 주요 지표들",
+      "answer": "Lighthouse는 페이지 로드 성능, 접근성, Best Practices, SEO, Progressive Web App(PWA) 기준 등을 평가합니다. 이 지표들을 통해 웹사이트의 전반적인 상태를 파악할 수 있습니다."
+    }
+  },
+  {
+    "question": "[웹 보안] XSS(Cross-Site Scripting)란 무엇인가?",
+    "answer": "XSS는 악성 스크립트가 다른 사용자의 브라우저에서 실행되도록 하는 보안 취약점입니다. 주로 입력 값의 검증이 부족할 때 발생하며, 공격자가 스크립트를 삽입해 사용자 정보를 탈취하거나 세션을 가로챌 수 있습니다.",
+    "subQuestion": {
+      "question": "XSS를 방지하기 위한 방법",
+      "answer": "XSS를 방지하려면 사용자 입력을 철저히 검증하고, 출력할 때는 HTML 이스케이프 처리를 해야 합니다. 또한, Content Security Policy(CSP)를 설정해 특정 스크립트만 실행되도록 제한할 수 있습니다."
+    }
+  }
+]
