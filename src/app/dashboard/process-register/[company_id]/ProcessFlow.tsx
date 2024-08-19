@@ -3,7 +3,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import ProcessCard from "./ProcessCard";
 import { AnimatePresence, Reorder } from "framer-motion";
-import { Button } from "@/components/ui/button";
 
 const ProcessFlow = ({
   processList,
@@ -21,7 +20,7 @@ const ProcessFlow = ({
       <Reorder.Group
         as="ol"
         axis="x"
-        className="flex items-center justify-start w-full overflow-auto"
+        className="flex justify-start items-center w-full overflow-auto"
         values={processList}
         onReorder={setProcessList}
       >

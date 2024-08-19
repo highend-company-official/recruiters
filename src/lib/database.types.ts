@@ -47,6 +47,56 @@ export type Database = {
           },
         ]
       }
+      hiring_steps: {
+        Row: {
+          company_id: number | null
+          created_at: string
+          id: number
+          name: string | null
+          order: number | null
+          status: Database["public"]["Enums"]["process_status"] | null
+        }
+        Insert: {
+          company_id?: number | null
+          created_at?: string
+          id?: number
+          name?: string | null
+          order?: number | null
+          status?: Database["public"]["Enums"]["process_status"] | null
+        }
+        Update: {
+          company_id?: number | null
+          created_at?: string
+          id?: number
+          name?: string | null
+          order?: number | null
+          status?: Database["public"]["Enums"]["process_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hiring_steps_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "company"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      process: {
+        Row: {
+          id: number
+          name: string | null
+        }
+        Insert: {
+          id?: number
+          name?: string | null
+        }
+        Update: {
+          id?: number
+          name?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar: string | null
@@ -87,7 +137,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      process_status: "not_started" | "in_progress" | "completed"
     }
     CompositeTypes: {
       [_ in never]: never

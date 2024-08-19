@@ -43,9 +43,13 @@ import useToggle from "@/hooks/useToggle";
 
 import { SUGGEST_LIST } from "./constants";
 import ProcessFlow from "./ProcessFlow";
+import { registProcess } from "./actions";
+import { useParams } from "next/navigation";
 
 const AddProcessForm = ({ name, logo }: Tables<"company">) => {
   const logoImage = bucketReader("company_logo_images", logo);
+  const { company_id } = useParams<{ company_id: string }>();
+
   const [stepName, setStepName] = useState("");
   const [isOpenStepList, toggleStepList] = useToggle(false);
   const [status, setStatus] = useState<ProcessStatus>("not_started");
@@ -80,15 +84,15 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
 
   return (
     <>
-      <CardHeader className="flex items-center justify-center space-x-4">
-        <Avatar className="w-16 h-16 rounded-lg shadow-md">
+      <CardHeader className="flex justify-center items-center space-x-4">
+        <Avatar className="shadow-md rounded-lg w-16 h-16">
           <AvatarImage src={logoImage} className="rounded-lg" />
-          <AvatarFallback className="text-lg font-semibold bg-gray-200 rounded-lg">
+          <AvatarFallback className="bg-gray-200 rounded-lg font-semibold text-lg">
             {name?.slice(0, 2)}
           </AvatarFallback>
         </Avatar>
 
-        <CardTitle className="text-3xl font-bold text-center">
+        <CardTitle className="font-bold text-3xl text-center">
           채용과정 등록
         </CardTitle>
         <CardDescription>
@@ -96,7 +100,7 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="flex items-center justify-center w-full mt-4">
+      <CardContent className="flex justify-center items-center mt-4 w-full">
         <form onSubmit={handleSubmit} className="space-y-6 w-[300px]">
           {/* 채용 단계 선택 */}
           <div className="flex flex-col w-full">
@@ -107,7 +111,7 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
                   {stepName || "전형이 선택되지 않았습니다."}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-full p-0">
+              <PopoverContent className="p-0 w-full">
                 <Command>
                   <CommandInput placeholder="전형을 선택해주세요..." />
                   <CommandList>
@@ -137,7 +141,7 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
           {/* 제출 버튼 */}
           <Button
             type="submit"
-            className="w-full px-4 py-2 font-semibold text-white transition duration-300 ease-in-out bg-blue-600 rounded shadow-md hover:bg-blue-700"
+            className="bg-blue-600 hover:bg-blue-700 shadow-md px-4 py-2 rounded w-full font-semibold text-white transition duration-300 ease-in-out"
           >
             채용 과정 추가
           </Button>
@@ -154,8 +158,13 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
 
       {processList.length > 0 && (
         <div className="flex justify-center mt-6">
-          <Button className="flex items-center justify-center px-4 py-2 font-semibold text-white transition duration-300 ease-in-out bg-green-600 rounded shadow-md hover:bg-green-700">
-            <Check className="w-5 h-5 mr-2" />
+          <Button
+            className="flex justify-center items-center bg-green-600 hover:bg-green-700 shadow-md px-4 py-2 rounded font-semibold text-white transition duration-300 ease-in-out"
+            onClick={async () =>
+              await registProcess(Number(company_id), processList)
+            }
+          >
+            <Check className="mr-2 w-5 h-5" />
             확정
           </Button>
         </div>
