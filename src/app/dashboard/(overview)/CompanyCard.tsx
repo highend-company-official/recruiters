@@ -16,10 +16,13 @@ import {
 } from "@/components/ui/hover-card";
 import { Progress } from "@/components/ui/progress";
 import { Tables } from "@/lib/database.types";
+import getProcessPercent from "@/utils/getProcessPercent";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
-type Props = Tables<"company">;
+type Props = Tables<"company"> & {
+  hiring_steps: Tables<"hiring_steps">[];
+};
 
 const CompanyCard = (props: Props) => {
   const supabase = createClient();
@@ -29,9 +32,14 @@ const CompanyCard = (props: Props) => {
     .from("company_logo_images")
     .getPublicUrl(props.logo ?? "").data.publicUrl;
 
+  const progressPercentage = getProcessPercent(props.hiring_steps);
+  const currentStep = props.hiring_steps
+    .filter((step) => step.status === "completed")
+    .pop();
+
   return (
     <Card
-      className="border-gray-200 shadow-lg hover:shadow-xl mt-6 p-4 border rounded-lg transition-shadow duration-300 ease-in-out"
+      className="border-gray-200 shadow-lg hover:shadow-xl mt-6 p-4 border rounded-lg transition-shadow duration-300 cursor-pointer ease-in-out"
       onClick={() => router.push(`/dashboard/company-detail/${props.id}`)}
     >
       <CardHeader className="flex flex-row items-center">
@@ -45,19 +53,29 @@ const CompanyCard = (props: Props) => {
           <CardTitle className="w-9/12 font-bold text-2xl text-ellipsis text-gray-800 whitespace-nowrap overflow-hidden">
             {props.name}
           </CardTitle>
-          <Badge
-            variant="outline"
-            className="bg-primary mt-2 px-2 py-1 rounded-full font-medium text-sm text-white"
-          >
-            최종 면접 진행중
-          </Badge>
+
+          {currentStep ? (
+            <Badge
+              variant="outline"
+              className="bg-primary mt-2 px-2 py-1 rounded-full font-medium text-sm text-white"
+            >
+              {currentStep.name} 진행중
+            </Badge>
+          ) : (
+            <Badge
+              variant="outline"
+              className="bg-foreground/10 mt-2 px-2 py-1 rounded-full font-medium text-black text-sm"
+            >
+              보류중
+            </Badge>
+          )}
         </div>
       </CardHeader>
       <CardContent className="mt-4">
         <HoverCard>
           <HoverCardTrigger>
             <span className="text-base text-primary hover:text-primary-dark underline cursor-pointer">
-              채용 진행도: {80}%
+              채용 진행도: {progressPercentage}%
             </span>
           </HoverCardTrigger>
           <HoverCardContent className="bg-gray-100 shadow-md p-4 rounded-lg">
@@ -71,9 +89,10 @@ const CompanyCard = (props: Props) => {
           </HoverCardContent>
         </HoverCard>
 
-        <Progress value={85} className="bg-gray-300 mt-4 rounded-full h-3">
-          <div className="bg-green-500 rounded-full h-full" />
-        </Progress>
+        <Progress
+          value={progressPercentage}
+          className="bg-gray-300 mt-4 rounded-full h-3"
+        />
       </CardContent>
       <CardFooter className="mt-4">
         <p className="text-gray-500 text-sm">Updated 2 days ago</p>

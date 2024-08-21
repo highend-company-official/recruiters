@@ -1,4 +1,4 @@
-import { Database as DB } from "../lib/database.types-=2";
+import { Database as DB } from "../lib/database.types";
 
 declare global {
   type Database = DB;
@@ -6,7 +6,7 @@ declare global {
   type ProcessStatus = "not_started" | "in_progress" | "completed";
 
   type Process = {
-    id: string;
+    id: number;
     stepName: string;
     status: ProcessStatus;
   };

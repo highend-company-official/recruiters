@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
 import { addMemo } from "./actions";
 
 type Memo = {
@@ -9,8 +11,11 @@ type Memo = {
 
 const ProcessMemo = (props: Memo) => {
   return (
-    <form
-      className="gap-1.5 grid w-full"
+    <motion.form
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+      className="gap-1.5 grid mt-6 w-full"
       action={(formData) => addMemo(props.id, formData)}
     >
       <Label htmlFor="message-2">({props.name})에 관한 메모</Label>
@@ -18,7 +23,7 @@ const ProcessMemo = (props: Memo) => {
       <p className="text-muted-foreground text-sm">
         채용에 도움이 되는 내용을 작성해보세요. 본인만 확인할 수 있습니다.
       </p>
-    </form>
+    </motion.form>
   );
 };
 

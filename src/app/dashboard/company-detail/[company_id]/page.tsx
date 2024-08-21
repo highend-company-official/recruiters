@@ -14,6 +14,13 @@ import { Button } from "@/components/ui/button";
 import WhyRegisterCard from "./WhyRegistCompanyCard";
 import ProcessFlow from "./ProcessFlow";
 import { Kbd } from "@/components/ui/kbd";
+import { Progress } from "@/components/ui/progress";
+import getProcessPercent from "@/utils/getProcessPercent";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 const Page = async ({ params }: { params: { company_id: string } }) => {
   const companyId = params.company_id;
@@ -23,6 +30,7 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
   const { data: companyData } = await supabase
     .from("company")
     .select("*, hiring_steps(*)")
+    .order("order", { referencedTable: "hiring_steps" })
     .eq("id", companyId);
 
   const company = companyData?.[0];
@@ -41,18 +49,19 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
     .from("company_logo_images")
     .getPublicUrl(company.logo || "");
 
+  const progressPercentage = getProcessPercent(company.hiring_steps);
+
   return (
     <>
       <Card className="mx-auto mt-8 p-6 sm:p-8 md:p-10 max-w-4xl">
-        <CardHeader className="flex items-center">
-          <Avatar className="shadow-md rounded-lg w-16 h-16">
-            <AvatarImage src={logoImage} className="rounded-lg" />
-            <AvatarFallback className="bg-gray-200 rounded-lg font-semibold text-lg">
-              {company.name?.slice(0, 2)}
-            </AvatarFallback>
-          </Avatar>
-
+        <CardHeader>
           <div className="flex flex-col justify-center items-center w-full">
+            <Avatar className="shadow-md mb-6 rounded-lg w-16 h-16">
+              <AvatarImage src={logoImage} className="rounded-lg" />
+              <AvatarFallback className="bg-gray-200 rounded-lg font-semibold text-lg">
+                {company.name?.slice(0, 2)}
+              </AvatarFallback>
+            </Avatar>
             <CardTitle className="w-full font-bold text-3xl text-center break-words">
               {company.name}
             </CardTitle>
@@ -66,6 +75,15 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
               </Link>
             )}
           </div>
+
+          <span className="text-base text-primary">
+            채용 진행도: {progressPercentage}%
+          </span>
+
+          <Progress
+            value={progressPercentage}
+            className="bg-gray-300 mt-4 rounded-full h-3"
+          />
         </CardHeader>
 
         <CardContent className="space-y-6 mt-4">
@@ -95,6 +113,7 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
                   <Button>채용과정 수정하기</Button>
                 </Link>
               </div>
+
               <ProcessFlow processList={company.hiring_steps} />
             </div>
           )}
