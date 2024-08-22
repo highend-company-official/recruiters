@@ -9,18 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/utils/supabase/server";
-import { Button } from "@/components/ui/button";
+
+import { Progress } from "@/components/ui/progress";
+import getStepPercent from "@/utils/getStepPercent";
 
 import WhyRegisterCard from "./WhyRegistCompanyCard";
-import ProcessFlow from "./ProcessFlow";
-import { Kbd } from "@/components/ui/kbd";
-import { Progress } from "@/components/ui/progress";
-import getProcessPercent from "@/utils/getProcessPercent";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import StepFlow from "./StepFlow";
+import AllPassConfetti from "./AllPassConfetti";
 
 const Page = async ({ params }: { params: { company_id: string } }) => {
   const companyId = params.company_id;
@@ -49,7 +44,7 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
     .from("company_logo_images")
     .getPublicUrl(company.logo || "");
 
-  const progressPercentage = getProcessPercent(company.hiring_steps);
+  const progressPercentage = getStepPercent(company.hiring_steps);
 
   return (
     <>
@@ -70,8 +65,13 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
               {company.description || "회사에 대한 설명이 없습니다."}
             </CardDescription>
             {company.website && (
-              <Link href={company.website} passHref target="_blank">
-                <Button variant="link">{company.website}</Button>
+              <Link
+                href={company.website}
+                passHref
+                target="_blank"
+                className="text-primary underline"
+              >
+                {company.website}
               </Link>
             )}
           </div>
@@ -86,39 +86,25 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
           />
         </CardHeader>
 
-        <CardContent className="space-y-6 mt-4">
+        <CardContent className="mt-4">
           {company.hiring_steps.length === 0 ? (
             <>
               <WhyRegisterCard />
 
-              <div className="flex justify-center">
-                <Link
-                  href={`/dashboard/process-register/${companyId}`}
-                  passHref
-                >
-                  <Button>채용과정 등록하기</Button>
-                </Link>
-              </div>
+              <Link
+                href={`/dashboard/step-register/${companyId}`}
+                passHref
+                className="inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 shadow-lg px-6 py-3 rounded-lg font-semibold text-white transform transition duration-300 ease-in-out hover:scale-105"
+              >
+                채용과정 등록
+              </Link>
             </>
           ) : (
-            <div className="flex flex-col justify-center">
-              <div className="flex justify-between items-end mb-4">
-                <span className="text-sm">
-                  채용과정을 클릭하면 <Kbd>간단한 메모</Kbd>를 할 수 있습니다.
-                </span>
-                <Link
-                  href={`/dashboard/process-register/${companyId}`}
-                  passHref
-                >
-                  <Button>채용과정 수정하기</Button>
-                </Link>
-              </div>
-
-              <ProcessFlow processList={company.hiring_steps} />
-            </div>
+            <StepFlow stepList={company.hiring_steps} />
           )}
         </CardContent>
       </Card>
+      {progressPercentage === 100 && <AllPassConfetti />}
     </>
   );
 };

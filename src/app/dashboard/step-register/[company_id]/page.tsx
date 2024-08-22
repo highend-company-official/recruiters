@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import HiringProcessForm from "./AddProcessForm";
+import AddStepForm from "./AddStepForm";
 import { createClient } from "@/utils/supabase/server";
 
 const Page = async ({ params }: { params: { company_id: string } }) => {
@@ -9,7 +9,7 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
   // Fetch Company Info
   const { data } = await supabase
     .from("company")
-    .select("*")
+    .select("*, hiring_steps(*)")
     .eq("id", companyId);
 
   const company = data?.[0];
@@ -24,7 +24,11 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
 
   return (
     <Card className="mx-auto p-6 sm:p-8 md:p-10 max-w-4xl">
-      <HiringProcessForm {...company} />
+      <AddStepForm
+        name={company.name!}
+        logo={company.logo!}
+        steps={company.hiring_steps}
+      />
     </Card>
   );
 };

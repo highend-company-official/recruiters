@@ -129,6 +129,35 @@ export type Database = {
           },
         ]
       }
+      step_memo: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: number
+          step_id: number | null
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: number
+          step_id?: number | null
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: number
+          step_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "process_memo_step_id_fkey"
+            columns: ["step_id"]
+            isOneToOne: false
+            referencedRelation: "hiring_steps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

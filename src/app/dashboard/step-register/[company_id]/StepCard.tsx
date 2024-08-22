@@ -3,20 +3,21 @@
 import React from "react";
 import { Reorder, motion } from "framer-motion";
 import { IoIosArrowForward } from "react-icons/io";
+import { StepState } from "@/types";
 
 type Props = {
   index: number;
   isLastStep: boolean;
-  process: Process;
+  step: StepState;
   onRemove: () => void;
 };
 
-const ProcessCard = ({ process, isLastStep, onRemove }: Props) => {
+const StepCard = ({ step, isLastStep, onRemove }: Props) => {
   return (
     <Reorder.Item
-      value={process}
+      value={step}
       as="li"
-      id={process.id}
+      id={step.id}
       animate={{
         opacity: 1,
         y: 0,
@@ -27,9 +28,9 @@ const ProcessCard = ({ process, isLastStep, onRemove }: Props) => {
       exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }}
       transition={{ duration: 0.2 }}
     >
-      <motion.div className="flex items-center justify-center w-32 h-32 border rounded-full shadow-md border-primary text-primary">
-        <span className="px-2 text-sm font-semibold text-center">
-          {process.stepName}
+      <motion.div className="flex justify-center items-center border-primary shadow-md border rounded-full w-32 h-32 text-primary">
+        <span className="px-2 font-semibold text-center text-sm">
+          {step.name}
         </span>
       </motion.div>
       {!isLastStep && (
@@ -41,4 +42,4 @@ const ProcessCard = ({ process, isLastStep, onRemove }: Props) => {
   );
 };
 
-export default ProcessCard;
+export default StepCard;

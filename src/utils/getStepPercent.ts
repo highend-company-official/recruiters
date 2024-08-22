@@ -1,6 +1,6 @@
 import { Tables } from "@/lib/database.types";
 
-const getProcessPercent = (steps: Tables<"hiring_steps">[]) => {
+const getStepPercent = (steps: Tables<"hiring_steps">[]) => {
   // 완료된 단계 수를 계산합니다.
   const completedSteps = steps.filter(
     (step) => step.status === "completed"
@@ -16,4 +16,4 @@ const getProcessPercent = (steps: Tables<"hiring_steps">[]) => {
   return progressPercentage;
 };
 
-export default getProcessPercent;
+export default getStepPercent;

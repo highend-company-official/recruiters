@@ -9,6 +9,7 @@ const CompanyList = async ({ userId }: { userId: string }) => {
   const { data: companyList } = await supabase
     .from("company")
     .select("*, hiring_steps(*)")
+    .order("order", { referencedTable: "hiring_steps" })
     .eq("user_id", userId);
 
   if (!companyList) {

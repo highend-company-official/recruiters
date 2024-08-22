@@ -1,10 +1,9 @@
 "use client";
 
-import { Check } from "lucide-react";
-import { useState } from "react";
 import { v4 } from "uuid";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useRef, useState } from "react";
+import { Check } from "lucide-react";
+import { useParams } from "next/navigation";
 
 import {
   CardContent,
@@ -37,24 +36,38 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import bucketReader from "@/utils/bucketReader";
-import { Tables } from "@/lib/database.types";
+import { Enums, Tables } from "@/lib/database.types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useToggle from "@/hooks/useToggle";
+import { StepState } from "@/types";
 
 import { SUGGEST_LIST } from "./constants";
-import ProcessFlow from "./ProcessFlow";
+import ProcessFlow from "./StepFlow";
 import { registProcess } from "./actions";
-import { useParams } from "next/navigation";
 
-const AddProcessForm = ({ name, logo }: Tables<"company">) => {
+type Props = {
+  name: string;
+  logo: string;
+  steps: Tables<"hiring_steps">[];
+};
+
+const AddStepForm = ({ name, logo, steps }: Props) => {
   const logoImage = bucketReader("company_logo_images", logo);
   const { company_id } = useParams<{ company_id: string }>();
 
+  const nextId = useRef(1);
+
   const [stepName, setStepName] = useState("");
   const [isOpenStepList, toggleStepList] = useToggle(false);
-  const [status, setStatus] = useState<ProcessStatus>("not_started");
+  const [status, setStatus] = useState<Enums<"process_status">>("not_started");
   const [dialogOpen, toggleDialog] = useToggle(false);
-  const [processList, setProcessList] = useState<Process[]>([]);
+  const [stepList, setStepList] = useState<StepState[]>(() =>
+    steps.map((step) => ({
+      id: step.id,
+      name: step.name!,
+      status: step.status!,
+    }))
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,13 +77,13 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
       return;
     }
 
-    const nextProcessItem = {
-      id: v4(),
-      stepName,
+    const nextProcessItem: StepState = {
+      id: nextId.current++,
+      name: stepName,
       status,
     };
 
-    setProcessList((prev) => [...prev, nextProcessItem]);
+    setStepList((prev) => [...prev, nextProcessItem]);
 
     // 폼 초기화
     setStepName("");
@@ -85,7 +98,7 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
   return (
     <>
       <CardHeader className="flex justify-center items-center space-x-4">
-        <Avatar className="shadow-md rounded-lg w-16 h-16">
+        <Avatar className="shadow-md mb-6 rounded-lg w-16 h-16">
           <AvatarImage src={logoImage} className="rounded-lg" />
           <AvatarFallback className="bg-gray-200 rounded-lg font-semibold text-lg">
             {name?.slice(0, 2)}
@@ -149,19 +162,14 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
       </CardContent>
 
       {/* 채용 과정 리스트 */}
-      <DndProvider backend={HTML5Backend}>
-        <ProcessFlow
-          processList={processList}
-          setProcessList={setProcessList}
-        />
-      </DndProvider>
+      <ProcessFlow stepList={stepList} setStepList={setStepList} />
 
-      {processList.length > 0 && (
+      {stepList.length > 0 && (
         <div className="flex justify-center mt-6">
           <Button
             className="flex justify-center items-center bg-green-600 hover:bg-green-700 shadow-md px-4 py-2 rounded font-semibold text-white transition duration-300 ease-in-out"
             onClick={async () =>
-              await registProcess(Number(company_id), processList)
+              await registProcess(Number(company_id), stepList)
             }
           >
             <Check className="mr-2 w-5 h-5" />
@@ -185,4 +193,4 @@ const AddProcessForm = ({ name, logo }: Tables<"company">) => {
   );
 };
 
-export default AddProcessForm;
+export default AddStepForm;

@@ -16,12 +16,29 @@ import {
 } from "@/components/ui/hover-card";
 import { Progress } from "@/components/ui/progress";
 import { Tables } from "@/lib/database.types";
-import getProcessPercent from "@/utils/getProcessPercent";
+import getStepPercent from "@/utils/getStepPercent";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { PropsWithChildren } from "react";
 
 type Props = Tables<"company"> & {
   hiring_steps: Tables<"hiring_steps">[];
+};
+
+const BadgetHoverCard = ({
+  children,
+  message,
+}: PropsWithChildren<{
+  message: React.ReactNode;
+}>) => {
+  return (
+    <HoverCard openDelay={0} closeDelay={0}>
+      <HoverCardTrigger>{children}</HoverCardTrigger>
+      <HoverCardContent className="bg-gray-100 shadow-md mt-2 p-4 rounded-lg">
+        <p className="text-sm">{message}</p>
+      </HoverCardContent>
+    </HoverCard>
+  );
 };
 
 const CompanyCard = (props: Props) => {
@@ -32,10 +49,20 @@ const CompanyCard = (props: Props) => {
     .from("company_logo_images")
     .getPublicUrl(props.logo ?? "").data.publicUrl;
 
-  const progressPercentage = getProcessPercent(props.hiring_steps);
+  const progressPercentage = getStepPercent(props.hiring_steps);
+
   const currentStep = props.hiring_steps
-    .filter((step) => step.status === "completed")
+    .filter(
+      (step) => step.status === "completed" || step.status === "in_progress"
+    )
     .pop();
+
+  const isPending =
+    props.hiring_steps.length === 0 ||
+    props.hiring_steps[0]?.status === "not_started";
+
+  const isComplete = progressPercentage === 100;
+  const isOnGoing = !isComplete && currentStep;
 
   return (
     <Card
@@ -54,25 +81,71 @@ const CompanyCard = (props: Props) => {
             {props.name}
           </CardTitle>
 
-          {currentStep ? (
-            <Badge
-              variant="outline"
-              className="bg-primary mt-2 px-2 py-1 rounded-full font-medium text-sm text-white"
+          {isOnGoing && (
+            <BadgetHoverCard
+              message={
+                <p>
+                  현재{" "}
+                  <strong className="text-bold text-primary">
+                    {currentStep.name}
+                  </strong>
+                  이 진행중입니다.
+                </p>
+              }
             >
-              {currentStep.name} 진행중
-            </Badge>
-          ) : (
-            <Badge
-              variant="outline"
-              className="bg-foreground/10 mt-2 px-2 py-1 rounded-full font-medium text-black text-sm"
+              <Badge
+                variant="secondary"
+                className="mt-2 px-2 py-1 rounded-full font-medium text-primary text-sm"
+              >
+                진행중
+              </Badge>
+            </BadgetHoverCard>
+          )}
+
+          {isPending && (
+            <BadgetHoverCard
+              message={
+                <p>
+                  <strong className="text-bold text-primary">
+                    &quot;보류중&quot;
+                  </strong>
+                  이란 아직 채용과정이 시작되지 않았음을 의미합니다. 채용과정을
+                  시작해보세요.
+                </p>
+              }
             >
-              보류중
-            </Badge>
+              <Badge
+                variant="outline"
+                className="bg-foreground/10 mt-2 px-2 py-1 rounded-full font-medium text-black text-sm"
+              >
+                보류중
+              </Badge>
+            </BadgetHoverCard>
+          )}
+
+          {isComplete && (
+            <BadgetHoverCard
+              message={
+                <p>
+                  <strong className="text-bold text-primary">
+                    {props.name}
+                  </strong>
+                  에 최종 합격하셨습니다! 축하합니다.
+                </p>
+              }
+            >
+              <Badge
+                variant="default"
+                className="mt-2 px-2 py-1 rounded-full font-medium text-sm text-white"
+              >
+                최종 합격
+              </Badge>
+            </BadgetHoverCard>
           )}
         </div>
       </CardHeader>
-      <CardContent className="mt-4">
-        <HoverCard>
+      <CardContent className="mt-2">
+        <HoverCard openDelay={0} closeDelay={0}>
           <HoverCardTrigger>
             <span className="text-base text-primary hover:text-primary-dark underline cursor-pointer">
               채용 진행도: {progressPercentage}%

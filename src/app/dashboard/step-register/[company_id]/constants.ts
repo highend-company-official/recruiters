@@ -1,3 +1,5 @@
+import { Enums } from "@/lib/database.types";
+
 export const SUGGEST_LIST = [
   "서류 전형",
   "화상 면접",
@@ -11,7 +13,7 @@ export const SUGGEST_LIST = [
 ];
 
 export const STATUS_OPTION: {
-  value: ProcessStatus;
+  value: Enums<"process_status">;
   label: string;
 }[] = [
   { value: "not_started", label: "진행 전" },
