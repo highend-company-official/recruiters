@@ -68,4 +68,20 @@ export async function passStep(companyId: number, stepId: number) {
   revalidatePath("/dashboard/company-detail/[company_id]", "layout");
 }
 
-export async function failStep(companyId: number, stepId: number) {}
+export async function failStep(companyId: number, stepId: number) {
+  const supabase = createClient();
+
+  const { error: updateError } = await supabase
+    .from("hiring_steps")
+    .update({ status: "failed" })
+    .eq("company_id", companyId)
+    .eq("id", stepId)
+    .select();
+
+  if (updateError) {
+    console.error("Error completing step:", updateError);
+    throw updateError;
+  }
+
+  revalidatePath("/dashboard/company-detail/[company_id]", "layout");
+}

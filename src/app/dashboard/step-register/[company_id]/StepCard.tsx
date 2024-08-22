@@ -17,7 +17,7 @@ const StepCard = ({ step, isLastStep, onRemove }: Props) => {
     <Reorder.Item
       value={step}
       as="li"
-      id={step.id}
+      id={step.id.toString()}
       animate={{
         opacity: 1,
         y: 0,

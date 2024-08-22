@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PiFilePdf } from "react-icons/pi";
 
 import {
   Card,
@@ -9,7 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/utils/supabase/server";
-
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import getStepPercent from "@/utils/getStepPercent";
 
@@ -49,7 +51,22 @@ const Page = async ({ params }: { params: { company_id: string } }) => {
   return (
     <>
       <Card className="mx-auto mt-8 p-6 sm:p-8 md:p-10 max-w-4xl">
-        <CardHeader>
+        <CardHeader className="relative">
+          {/* <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                className="right-4 border-primary mb-4 ml-auto border w-[130px] text-primary hover:text-primary"
+              >
+                <PiFilePdf size={24} />
+                요약
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <PDFViewer />
+            </DialogContent>
+          </Dialog> */}
+
           <div className="flex flex-col justify-center items-center w-full">
             <Avatar className="shadow-md mb-6 rounded-lg w-16 h-16">
               <AvatarImage src={logoImage} className="rounded-lg" />

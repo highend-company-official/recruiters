@@ -51,18 +51,12 @@ const CompanyCard = (props: Props) => {
 
   const progressPercentage = getStepPercent(props.hiring_steps);
 
-  const currentStep = props.hiring_steps
-    .filter(
-      (step) => step.status === "completed" || step.status === "in_progress"
-    )
-    .pop();
+  const sortedSteps = props.hiring_steps.sort((a, b) => a.order! - b.order!);
 
-  const isPending =
-    props.hiring_steps.length === 0 ||
-    props.hiring_steps[0]?.status === "not_started";
-
+  const currentStep = sortedSteps.find((step) => step.status === "in_progress");
+  const isPending = sortedSteps[0]?.status === "not_started";
   const isComplete = progressPercentage === 100;
-  const isOnGoing = !isComplete && currentStep;
+  const isFalied = sortedSteps.some((step) => step.status === "failed");
 
   return (
     <Card
@@ -81,13 +75,13 @@ const CompanyCard = (props: Props) => {
             {props.name}
           </CardTitle>
 
-          {isOnGoing && (
+          {!!currentStep && (
             <BadgetHoverCard
               message={
                 <p>
                   현재{" "}
                   <strong className="text-bold text-primary">
-                    {currentStep.name}
+                    {currentStep?.name}
                   </strong>
                   이 진행중입니다.
                 </p>
@@ -139,6 +133,26 @@ const CompanyCard = (props: Props) => {
                 className="mt-2 px-2 py-1 rounded-full font-medium text-sm text-white"
               >
                 최종 합격
+              </Badge>
+            </BadgetHoverCard>
+          )}
+
+          {isFalied && (
+            <BadgetHoverCard
+              message={
+                <p>
+                  <strong className="text-bold text-primary">
+                    {props.name}
+                  </strong>
+                  에 안타깝게도 불합격 하셨습니다.
+                </p>
+              }
+            >
+              <Badge
+                variant="destructive"
+                className="mt-2 px-2 py-1 rounded-full font-medium text-sm text-white"
+              >
+                불합격
               </Badge>
             </BadgetHoverCard>
           )}

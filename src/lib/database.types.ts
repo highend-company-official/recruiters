@@ -135,18 +135,21 @@ export type Database = {
           created_at: string
           id: number
           step_id: number | null
+          user_id: string | null
         }
         Insert: {
           body?: string | null
           created_at?: string
           id?: number
           step_id?: number | null
+          user_id?: string | null
         }
         Update: {
           body?: string | null
           created_at?: string
           id?: number
           step_id?: number | null
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -154,6 +157,13 @@ export type Database = {
             columns: ["step_id"]
             isOneToOne: false
             referencedRelation: "hiring_steps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "step_memo_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -166,7 +176,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      process_status: "not_started" | "in_progress" | "completed"
+      process_status: "not_started" | "in_progress" | "completed" | "failed"
     }
     CompositeTypes: {
       [_ in never]: never

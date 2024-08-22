@@ -1,11 +1,17 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
-import { Button } from "@/components/ui/button";
-import CompanyList from "./CompanyList";
 
-const Page = async () => {
+import CompanyList from "./CompanyList";
+import OverviewSetting from "./OverviewSetting";
+
+const Page = async ({
+  params,
+  searchParams,
+}: {
+  params: unknown;
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
   const supabase = createClient();
 
   const {
@@ -16,17 +22,14 @@ const Page = async () => {
     redirect("/auth/sign-in");
   }
 
+  const sort = (searchParams?.sort as string) ?? "new";
+  const userId = session.user.id;
+
   return (
     <div className="mx-auto mt-12 max-w-4xl">
-      <div className="flex justify-center">
-        <Link href="/dashboard/company-add">
-          <Button className="bg-blue-600 hover:bg-blue-700 shadow-lg px-8 py-4 rounded-lg font-semibold text-lg text-white transform transition duration-300 ease-in-out hover:scale-105">
-            회사 등록
-          </Button>
-        </Link>
-      </div>
+      <OverviewSetting />
 
-      <CompanyList userId={session.user.id} />
+      <CompanyList sort={sort} userId={userId} />
     </div>
   );
 };

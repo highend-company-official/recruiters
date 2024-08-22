@@ -20,9 +20,9 @@ export async function addCompany(formData: FormData) {
     user_id: user?.id!,
   };
 
-  const logoFile = formData.get("logo");
+  const logoFile = formData.get("logo") as File;
 
-  if (logoFile && logoFile instanceof File) {
+  if (logoFile.size && logoFile instanceof File) {
     const fileExtension = logoFile.name.split(".").pop(); // 파일 확장자 추출
     const filename = `${uuidv4()}.${fileExtension}`; // 파일 이름에 확장자 추가
     const uploadResponse = await supabase.storage

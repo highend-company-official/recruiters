@@ -1,16 +1,70 @@
-import { createClient } from "@/utils/supabase/server";
-import CompanyCard from "./CompanyCard";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
-const CompanyList = async ({ userId }: { userId: string }) => {
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/server";
+
+import CompanyCard from "./CompanyCard";
+
+type Params = {
+  sort: string;
+  userId: string;
+};
+
+const CompanyList = async ({ sort, userId }: Params) => {
   const supabase = createClient();
 
-  const { data: companyList } = await supabase
-    .from("company")
-    .select("*, hiring_steps(*)")
-    .order("order", { referencedTable: "hiring_steps" })
-    .eq("user_id", userId);
+  const getCompanyList = async () => {
+    // 모든 회사와 연결된 채용 단계를 가져옵니다.
+    const { data: companies, error } = await supabase
+      .from("company")
+      .select("*, hiring_steps(*)")
+      .eq("user_id", userId);
+
+    if (error) {
+      console.error("데이터를 가져오는 중 오류 발생:", error);
+      return null;
+    }
+
+    // 각 회사별 진행도를 계산합니다.
+    const sortedCompanies = companies.map((company) => {
+      const steps = company.hiring_steps || []; // 채용 단계가 없을 경우 빈 배열로 처리
+
+      const completedSteps = steps.filter(
+        (step) => step.status === "completed"
+      ).length;
+
+      const totalSteps = steps.length;
+
+      // 진행도가 없을 경우 0으로 처리
+      const progress = totalSteps === 0 ? 0 : completedSteps / totalSteps;
+
+      return {
+        ...company,
+        progress,
+      };
+    });
+
+    // 정렬 로직
+    if (sort === "high") {
+      sortedCompanies.sort((a, b) => b.progress - a.progress); // 진행도 높은 순
+    } else if (sort === "low") {
+      sortedCompanies.sort((a, b) => a.progress - b.progress); // 진행도 낮은 순
+    } else if (sort === "new") {
+      sortedCompanies.sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      ); // 최신순
+    } else if (sort === "old") {
+      sortedCompanies.sort(
+        (a, b) =>
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      ); // 오래된 순
+    }
+
+    return sortedCompanies;
+  };
+
+  const companyList = await getCompanyList();
 
   if (!companyList) {
     return (
