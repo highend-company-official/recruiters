@@ -5,6 +5,8 @@ import { createClient } from "@/utils/supabase/server";
 
 import CompanyCard from "./CompanyCard";
 
+export const dynamic = "force-dynamic";
+
 type Params = {
   sort: string;
   userId: string;

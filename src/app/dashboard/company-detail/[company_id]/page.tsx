@@ -10,14 +10,14 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/utils/supabase/server";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import getStepPercent from "@/utils/getStepPercent";
 
 import WhyRegisterCard from "./WhyRegistCompanyCard";
 import StepFlow from "./StepFlow";
 import AllPassConfetti from "./AllPassConfetti";
+
+export const dynamic = "force-dynamic";
 
 const Page = async ({ params }: { params: { company_id: string } }) => {
   const companyId = params.company_id;

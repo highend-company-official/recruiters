@@ -5,6 +5,8 @@ import { createClient } from "@/utils/supabase/server";
 import CompanyList from "./CompanyList";
 import OverviewSetting from "./OverviewSetting";
 
+export const dynamic = "force-dynamic";
+
 const Page = async ({
   searchParams,
 }: {

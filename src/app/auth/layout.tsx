@@ -2,6 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 
+export const dynamic = "force-dynamic";
+
 const Layout = async ({ children }: PropsWithChildren) => {
   const supabase = createClient();
 

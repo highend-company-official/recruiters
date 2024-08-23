@@ -16,7 +16,6 @@ import { useRouter } from "next/navigation";
 
 const GithubSignInButton = () => {
   const supabase = createClient();
-  const { replace } = useRouter();
 
   const [openErrorDialog, toggleDialog] = useToggle(false);
 
@@ -24,7 +23,7 @@ const GithubSignInButton = () => {
     try {
       await supabase.auth.signInWithOAuth({
         provider: "github",
-        options: { redirectTo: `${window.location.origin}/auth/callback` },
+        options: { redirectTo: `${location.origin}/auth/callback` },
       });
     } catch (error) {
       toggleDialog(true);
@@ -54,7 +53,7 @@ const GithubSignInButton = () => {
 
       <Button
         variant="outline"
-        className="w-full text-white bg-black"
+        className="bg-black w-full text-white"
         onClick={handleSignInWithGithub}
       >
         깃허브로 로그인하기

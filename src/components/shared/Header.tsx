@@ -12,6 +12,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import ProfileMenu from "./ProfileMenu";
 
+export const dynamic = "force-dynamic";
+
 const Header = async ({
   title,
   children,

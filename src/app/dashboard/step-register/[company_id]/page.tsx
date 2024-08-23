@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card";
 import AddStepForm from "./AddStepForm";
 import { createClient } from "@/utils/supabase/server";
 
+export const dynamic = "force-dynamic";
+
 const Page = async ({ params }: { params: { company_id: string } }) => {
   const companyId = params.company_id;
   const supabase = createClient();
