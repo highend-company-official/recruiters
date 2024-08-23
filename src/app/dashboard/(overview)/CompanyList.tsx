@@ -66,7 +66,7 @@ const CompanyList = async ({ sort, userId }: Params) => {
 
   const companyList = await getCompanyList();
 
-  if (!companyList) {
+  if (companyList?.length === 0) {
     return (
       <>
         <div className="top-0 z-50 fixed inset-0 flex justify-center items-center bg-black/50">

@@ -6,10 +6,8 @@ import CompanyList from "./CompanyList";
 import OverviewSetting from "./OverviewSetting";
 
 const Page = async ({
-  params,
   searchParams,
 }: {
-  params: unknown;
   searchParams?: { [key: string]: string | string[] | undefined };
 }) => {
   const supabase = createClient();

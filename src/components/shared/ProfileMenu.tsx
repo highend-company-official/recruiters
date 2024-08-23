@@ -45,13 +45,13 @@ const ProfileMenu = ({ avatar, name }: Props) => {
         <DropdownMenuLabel>내 계정</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link className="w-full h-full" href="/dashboard/profile">
+          <Link className="w-full h-full" href="/prepare">
             프로필
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link className="w-full h-full" href="/dashboard/setting">
-            대시보드 설정
+          <Link className="w-full h-full" href="/prepare">
+            설정
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
